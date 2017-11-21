@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="demo.css">
+    <script src="https://unpkg.com/vue/dist/vue.js">
+    </script>
+</head>
+<body>
+<div id="app">
+    <div
+            class="demo"
+            @click="attachRed = !attachRed"
+            :class="divClasses"></div>
+    <div class="demo" :class="{red: attachRed}"></div>
+    <!-- below is important: putting an array into the class property. Vue can analyze is as an object -->
+    <div class="demo" :class="[color, {red: attachRed}]"></div>
+    <hr>
+    <input type="text" v-model="color">
+</div>
+
+<script>
+// the below code changes color by changing css classes
+    new Vue({
+        el: '#app',
+        data: {
+            attachRed: false,
+            color: 'green'
+        },
+        computed: {
+            divClasses: function() {
+                return {
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
